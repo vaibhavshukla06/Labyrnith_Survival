@@ -2,6 +2,10 @@
 
 A multiplayer survival escape game with a Minecraft-style aesthetic. Players must explore a procedurally generated, shifting voxel-based maze, find clues, collect items, and survive against AI-controlled monsters while working together or potentially betraying each other.
 
+## Play Online
+
+You can play the game online at: [https://your-render-url.onrender.com](https://your-render-url.onrender.com)
+
 ## Overview
 
 This is a web-based version of the Labyrinth Survival game, using Three.js for 3D rendering and Socket.io for real-time multiplayer functionality.

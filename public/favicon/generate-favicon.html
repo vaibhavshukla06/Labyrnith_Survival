@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favicon Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin: 10px;
+    }
+    .sizes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .size-container {
+      text-align: center;
+      margin: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Labyrinth Survival Favicon Generator</h1>
+  <p>This tool generates favicon files in different sizes from the SVG.</p>
+  
+  <div class="sizes">
+    <div class="size-container">
+      <h3>16x16</h3>
+      <canvas id="canvas16" width="16" height="16"></canvas>
+    </div>
+    <div class="size-container">
+      <h3>32x32</h3>
+      <canvas id="canvas32" width="32" height="32"></canvas>
+    </div>
+    <div class="size-container">
+      <h3>48x48</h3>
+      <canvas id="canvas48" width="48" height="48"></canvas>
+    </div>
+    <div class="size-container">
+      <h3>64x64</h3>
+      <canvas id="canvas64" width="64" height="64"></canvas>
+    </div>
+    <div class="size-container">
+      <h3>128x128</h3>
+      <canvas id="canvas128" width="128" height="128"></canvas>
+    </div>
+    <div class="size-container">
+      <h3>192x192</h3>
+      <canvas id="canvas192" width="192" height="192"></canvas>
+    </div>
+    <div class="size-container">
+      <h3>512x512</h3>
+      <canvas id="canvas512" width="512" height="512"></canvas>
+    </div>
+  </div>
+  
+  <button id="downloadAll">Download All Favicon Files</button>
+  
+  <script>
+    // Load the SVG
+    const svgUrl = 'death.svg';
+    const img = new Image();
+    img.src = svgUrl;
+    
+    img.onload = function() {
+      // Draw on all canvases
+      drawOnCanvas('canvas16', img);
+      drawOnCanvas('canvas32', img);
+      drawOnCanvas('canvas48', img);
+      drawOnCanvas('canvas64', img);
+      drawOnCanvas('canvas128', img);
+      drawOnCanvas('canvas192', img);
+      drawOnCanvas('canvas512', img);
+    };
+    
+    function drawOnCanvas(canvasId, img) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      
+      // Fill with a background color (optional)
+      ctx.fillStyle = '#d2b48c'; // Tan color to match the game's theme
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw the SVG
+      const padding = canvas.width * 0.1; // 10% padding
+      ctx.drawImage(
+        img, 
+        padding, 
+        padding, 
+        canvas.width - (padding * 2), 
+        canvas.height - (padding * 2)
+      );
+    }
+    
+    // Download functionality
+    document.getElementById('downloadAll').addEventListener('click', function() {
+      downloadCanvas('canvas16', 'favicon-16x16.png');
+      downloadCanvas('canvas32', 'favicon-32x32.png');
+      downloadCanvas('canvas48', 'favicon.ico'); // ICO format for older browsers
+      downloadCanvas('canvas64', 'favicon-64x64.png');
+      downloadCanvas('canvas128', 'favicon-128x128.png');
+      downloadCanvas('canvas192', 'android-chrome-192x192.png');
+      downloadCanvas('canvas512', 'android-chrome-512x512.png');
+      
+      // Also generate apple-touch-icon
+      downloadCanvas('canvas192', 'apple-touch-icon.png');
+      
+      alert('All favicon files have been downloaded. Place them in your public/favicon directory.');
+    });
+    
+    function downloadCanvas(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html> 
