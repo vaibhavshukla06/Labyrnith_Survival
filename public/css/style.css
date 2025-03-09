@@ -1,0 +1,290 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #87CEEB; /* Sky blue background */
+}
+
+#game-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Overlay Screens */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  backdrop-filter: blur(5px);
+}
+
+.overlay .content {
+  background-color: rgba(34, 34, 34, 0.9);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.overlay h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  color: #4CAF50;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* Loading Screen */
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  margin: 1rem 0;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0;
+  background-color: #4CAF50;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 20px 20px;
+  transition: width 0.3s ease;
+  animation: progress-animation 1s linear infinite;
+}
+
+@keyframes progress-animation {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 0; }
+}
+
+/* Menu Buttons */
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.menu-btn {
+  padding: 0.8rem 1.5rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#room-code {
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: 2px solid rgba(76, 175, 80, 0.3);
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: border-color 0.3s ease;
+}
+
+#room-code:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Game UI */
+#game-ui {
+  position: absolute;
+  width: 100%;
+  padding: 1rem;
+  z-index: 10;
+  color: white;
+  pointer-events: none;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+#health-bar-container {
+  width: 200px;
+  height: 20px;
+  background-color: rgba(51, 51, 51, 0.7);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#health-bar {
+  height: 100%;
+  width: 100%;
+  background-color: #4CAF50;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 20px 20px;
+  transition: width 0.3s ease;
+}
+
+#objective {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+#timer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+#players-escaped {
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+/* Interaction Prompt */
+#interaction-prompt {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  z-index: 20;
+  pointer-events: none;
+  border-left: 3px solid #4CAF50;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+/* Game Messages */
+.game-message {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  z-index: 30;
+  pointer-events: none;
+  animation: fadeIn 0.3s ease;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 80%;
+  text-align: center;
+}
+
+/* Message types */
+.game-message.info {
+  border-left: 3px solid #3498db;
+}
+
+.game-message.damage {
+  border-left: 3px solid #e74c3c;
+  color: #ff6b6b;
+}
+
+.game-message.heal {
+  border-left: 3px solid #2ecc71;
+  color: #7bed9f;
+}
+
+.game-message.buff {
+  border-left: 3px solid #9b59b6;
+  color: #c39bd3;
+}
+
+.game-message.warning {
+  border-left: 3px solid #f39c12;
+  color: #ffeaa7;
+}
+
+.game-message.interaction {
+  border-left: 3px solid #1abc9c;
+  color: #7dcea0;
+}
+
+/* Message stacking */
+.game-message:nth-child(1) { top: 20%; }
+.game-message:nth-child(2) { top: 25%; }
+.game-message:nth-child(3) { top: 30%; }
+.game-message:nth-child(4) { top: 35%; }
+.game-message:nth-child(5) { top: 40%; }
+
+.fade-out {
+  animation: fadeOut 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to { opacity: 0; transform: translateX(-50%) translateY(10px); }
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+} 

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labyrinth Survival</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  
+  <!-- Three.js core -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  
+  <!-- Three.js loaders -->
+  <script src="https://unpkg.com/three@0.160.0/examples/js/loaders/OBJLoader.js"></script>
+  
+  <!-- ES modules for advanced usage -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+    import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+    
+    // Make THREE available globally for our scripts
+    window.THREE = THREE;
+    window.PointerLockControls = PointerLockControls;
+    
+    // Make OBJLoader available globally
+    if (!window.THREE.OBJLoader) {
+      window.THREE.OBJLoader = OBJLoader;
+      console.log('OBJLoader set from ES modules');
+    }
+    
+    // Signal that Three.js is loaded
+    window.threeJsLoaded = true;
+    
+    // Dispatch an event to notify that Three.js is loaded
+    document.dispatchEvent(new Event('threeJsLoaded'));
+  </script>
+  <style>
+    .controls-help {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-size: 14px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .controls-help h3 {
+      margin-top: 0;
+      color: #ffcc00;
+    }
+    
+    .controls-help ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+    
+    .controls-help li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <div id="loading-screen" class="overlay">
+      <div class="content">
+        <h1>Labyrinth Survival</h1>
+        <div class="progress-container">
+          <div id="progress-bar"></div>
+        </div>
+        <p id="loading-text">Loading...</p>
+      </div>
+    </div>
+    
+    <div id="menu-screen" class="overlay hidden">
+      <div class="content">
+        <h1>Labyrinth Survival</h1>
+        <div class="menu-buttons">
+          <button id="host-btn" class="menu-btn">Host Game</button>
+          <button id="join-btn" class="menu-btn">Join Game</button>
+          <div id="join-form" class="hidden">
+            <input type="text" id="room-code" placeholder="Room Code">
+            <button id="connect-btn">Connect</button>
+          </div>
+          <button id="settings-btn" class="menu-btn">Settings</button>
+        </div>
+        
+        <div class="controls-help">
+          <h3>Game Controls</h3>
+          <ul>
+            <li><strong>Movement:</strong> WASD or Arrow Keys</li>
+            <li><strong>Look Around:</strong> Mouse (click game to enable)</li>
+            <li><strong>Sprint:</strong> Shift</li>
+            <li><strong>Jump:</strong> Space</li>
+            <li><strong>Toggle View:</strong> V (switch between first/third person)</li>
+            <li><strong>Reset Camera:</strong> R</li>
+            <li><strong>Toggle Collision:</strong> C (for debugging)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div id="game-ui" class="hidden">
+      <div id="health-bar-container">
+        <div id="health-bar"></div>
+      </div>
+      <div id="objective">Find the exit and escape!</div>
+      <div id="timer">10:00</div>
+      <div id="players-escaped">Players Escaped: 0/0</div>
+    </div>
+    
+    <div id="game-over-screen" class="overlay hidden">
+      <div class="content">
+        <h1 id="game-over-title">Game Over</h1>
+        <p id="game-over-message"></p>
+        <button id="play-again-btn" class="menu-btn">Play Again</button>
+        <button id="main-menu-btn" class="menu-btn">Main Menu</button>
+      </div>
+    </div>
+    
+    <div id="interaction-prompt" class="hidden">
+      <p id="interaction-text">Press E to interact</p>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+  <script src="js/config.js" defer></script>
+  <script src="textures/leaf-texture.js" defer></script>
+  <script src="textures/wall-texture.js" defer></script>
+  <script src="js/monster-model-loader.js" defer></script>
+  <script src="js/network.js" defer></script>
+  <script src="js/maze-renderer.js" defer></script>
+  <script src="js/player.js" defer></script>
+  <script src="js/monster.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/game.js" defer></script>
+  
+  <!-- Error recovery script -->
+  <script>
+    // Force hide loading screen after 20 seconds if it's still visible
+    setTimeout(() => {
+      const loadingScreen = document.getElementById('loading-screen');
+      const menuScreen = document.getElementById('menu-screen');
+      
+      if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+        console.error('Loading screen timeout - forcing menu display');
+        loadingScreen.classList.add('hidden');
+        
+        if (menuScreen) {
+          menuScreen.classList.remove('hidden');
+        }
+        
+        // Show error message
+        alert('The game is taking too long to load. Please check the browser console for errors and try refreshing the page.');
+      }
+    }, 20000);
+  </script>
+</body>
+</html> 
