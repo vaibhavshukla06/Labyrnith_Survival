@@ -418,6 +418,6 @@ const tryPort = (port) => {
   });
 };
 
-// Start the server with port 3000 as the first option
+// Start the server with the PORT environment variable or default to 3000
 const PORT = process.env.PORT || 3000;
 tryPort(PORT); 

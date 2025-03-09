@@ -1,0 +1,27 @@
+{
+  "name": "labyrinth-survival",
+  "version": "1.0.0",
+  "description": "Multiplayer survival escape game with procedurally generated mazes",
+  "main": "server/index.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "start": "cd server && node index.js",
+    "install": "cd server && npm install",
+    "dev": "cd server && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/labyrinth-survival.git"
+  },
+  "keywords": [
+    "game",
+    "multiplayer",
+    "maze",
+    "threejs",
+    "socketio"
+  ],
+  "author": "",
+  "license": "MIT"
+} 

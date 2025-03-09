@@ -31,7 +31,7 @@ const Config = {
   
   // Network settings
   serverUrl: window.location.hostname === 'localhost' ? 'http://localhost:3000' : window.location.origin,
-  offlineMode: true, // Set to true to play without a server connection
+  offlineMode: false, // Set to false to enable multiplayer by default
   
   // Graphics settings
   fogColor: 0xffefd5, // Papaya whip - sandy fog color
